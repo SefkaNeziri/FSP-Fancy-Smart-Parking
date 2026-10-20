@@ -1,0 +1,62 @@
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="dk.via.pro3.RegisterController"
+      stylesheets="@styles.css"
+      styleClass="page"
+      alignment="CENTER"
+      spacing="15"
+      prefWidth="760"
+      prefHeight="580">
+
+    <children>
+        <VBox alignment="CENTER"
+              spacing="11"
+              maxWidth="420"
+              styleClass="form-card">
+
+            <children>
+                <Label text="Create Account"
+                       styleClass="section-title"/>
+
+                <Label text="Join Fancy Smart Parking"
+                       styleClass="subtitle"/>
+
+                <Label text="Full Name"/>
+
+                <TextField fx:id="nameField"
+                           promptText="Enter your full name"
+                           maxWidth="320"/>
+
+                <Label text="Email Address"/>
+
+                <TextField fx:id="emailField"
+                           promptText="Enter your email"
+                           maxWidth="320"/>
+
+                <Label text="Password"/>
+
+                <PasswordField fx:id="passwordField"
+                               promptText="At least 8 characters"
+                               maxWidth="320"/>
+
+                <Label text="Confirm Password"/>
+
+                <PasswordField fx:id="confirmPasswordField"
+                               promptText="Repeat your password"
+                               maxWidth="320"/>
+
+                <Button text="Create Account"
+                        onAction="#handleRegister"
+                        styleClass="primary-button"
+                        prefWidth="220"/>
+
+                <Hyperlink text="Back to Login"
+                           onAction="#handleBack"/>
+            </children>
+        </VBox>
+    </children>
+</VBox>
