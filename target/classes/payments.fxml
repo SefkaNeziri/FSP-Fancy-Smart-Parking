@@ -1,0 +1,52 @@
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="fsp.driverFrontend.PaymentsController"
+      stylesheets="@styles.css"
+      styleClass="page"
+      alignment="CENTER"
+      spacing="20"
+      prefWidth="760"
+      prefHeight="580">
+
+    <children>
+        <Label text="Payments"
+               styleClass="section-title"/>
+
+        <Label text="Review your reservation payment details"
+               styleClass="subtitle"/>
+
+        <VBox alignment="CENTER"
+              spacing="18"
+              styleClass="form-card"
+              maxWidth="550">
+
+            <children>
+                <Label text="Select Reservation"/>
+
+                <ComboBox fx:id="reservationComboBox"
+                          prefWidth="490"/>
+
+                <Label fx:id="paymentDetailsLabel"
+                       text="No reservation selected"
+                       styleClass="price-label"/>
+
+                <Button text="Simulate Payment"
+                        onAction="#handleSimulatePayment"
+                        styleClass="primary-button"
+                        prefWidth="220"/>
+
+                <Label text="Demo only - no real payment will be processed"
+                       styleClass="demo-label"
+                       wrapText="true"/>
+            </children>
+        </VBox>
+
+        <Button text="Back to Dashboard"
+                onAction="#handleBack"
+                styleClass="secondary-button"/>
+    </children>
+</VBox>

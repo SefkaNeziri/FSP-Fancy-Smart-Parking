@@ -1,0 +1,33 @@
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="fsp.driverFrontend.NotificationsController"
+      stylesheets="@styles.css"
+      styleClass="page"
+      alignment="CENTER"
+      spacing="20"
+      prefWidth="760"
+      prefHeight="580">
+
+    <children>
+        <Label text="Notifications"
+               styleClass="section-title"/>
+
+        <Label text="Updates about your parking activity"
+               styleClass="subtitle"/>
+
+        <ListView fx:id="notificationList"
+                  maxWidth="650"
+                  prefHeight="300"/>
+
+        <Button text="Back to Dashboard"
+                onAction="#handleBack"
+                styleClass="secondary-button"/>
+
+        <Label text="Demo notifications"
+               styleClass="demo-label"/>
+    </children>
+</VBox>

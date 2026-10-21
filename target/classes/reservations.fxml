@@ -1,0 +1,37 @@
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="fsp.driverFrontend.ReservationsController"
+      stylesheets="@styles.css"
+      styleClass="page"
+      alignment="CENTER"
+      spacing="18"
+      prefWidth="760"
+      prefHeight="580">
+
+    <children>
+        <Label text="My Reservations"
+               styleClass="section-title"/>
+
+        <Label text="View and manage your parking reservations"
+               styleClass="subtitle"/>
+
+        <ListView fx:id="reservationList"
+                  maxWidth="700"
+                  prefHeight="260"/>
+
+        <Button text="Cancel Selected Reservation"
+                onAction="#handleCancel"
+                styleClass="primary-button"/>
+
+        <Button text="Back to Dashboard"
+                onAction="#handleBack"
+                styleClass="secondary-button"/>
+
+        <Label text="Demo reservations - stored only in memory"
+               styleClass="demo-label"/>
+    </children>
+</VBox>
