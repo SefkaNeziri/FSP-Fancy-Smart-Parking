@@ -1,0 +1,59 @@
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="dk.via.pro3.DashboardController"
+      stylesheets="@styles.css"
+      styleClass="page"
+      alignment="CENTER"
+      spacing="22"
+      prefWidth="760"
+      prefHeight="580">
+
+    <children>
+        <Label text="Fancy Smart Parking"
+               styleClass="app-title"/>
+
+        <Label fx:id="welcomeLabel"
+               text="Welcome, Driver"
+               styleClass="section-title"/>
+
+        <Label text="What would you like to do today?"
+               styleClass="subtitle"/>
+
+        <VBox alignment="CENTER"
+              spacing="14"
+              styleClass="form-card"
+              maxWidth="400">
+
+            <children>
+                <Button text="Find Parking"
+                        onAction="#handleSearch"
+                        styleClass="primary-button"
+                        prefWidth="260"/>
+
+                <Button text="My Reservations"
+                        onAction="#handleReservations"
+                        prefWidth="260"/>
+
+                <Button text="Payments"
+                        onAction="#handlePayments"
+                        prefWidth="260"/>
+
+                <Button text="Notifications"
+                        onAction="#handleNotifications"
+                        prefWidth="260"/>
+
+                <Button text="Logout"
+                        onAction="#handleLogout"
+                        styleClass="secondary-button"
+                        prefWidth="260"/>
+            </children>
+        </VBox>
+
+        <Label text="Frontend Demo Mode"
+               styleClass="demo-label"/>
+    </children>
+</VBox>

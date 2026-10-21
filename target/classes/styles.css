@@ -1,0 +1,114 @@
+
+/* Glavna pozadina aplikacije. */
+.page {
+  -fx-background-color: #FFF8F5;
+  -fx-padding: 25;
+}
+
+/* Bela kartica za forme i menije. */
+.form-card {
+  -fx-background-color: #FFFFFF;
+  -fx-background-radius: 20;
+  -fx-padding: 25;
+  -fx-border-color: #F6D8E3;
+  -fx-border-radius: 20;
+  -fx-border-width: 1;
+}
+
+/* Glavni naziv aplikacije. */
+.app-title {
+  -fx-font-size: 25px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #B85C83;
+}
+
+/* Naslovi pojedinacnih ekrana. */
+.section-title {
+  -fx-font-size: 23px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #684858;
+}
+
+/* Manji opisni tekst ispod naslova. */
+.subtitle {
+  -fx-font-size: 13px;
+  -fx-text-fill: #876C79;
+}
+
+/* Standardni tekst na ekranima. */
+.label {
+  -fx-text-fill: #684858;
+}
+
+/* Polja za unos. */
+.text-field,
+.password-field,
+.combo-box,
+.date-picker {
+  -fx-background-color: #FCE7EF;
+  -fx-background-radius: 10;
+  -fx-border-color: #E8A1BB;
+  -fx-border-radius: 10;
+  -fx-border-width: 1;
+  -fx-padding: 8;
+}
+
+/* Standardna dugmad. */
+.button {
+  -fx-background-color: #F6D8BD;
+  -fx-background-radius: 12;
+  -fx-text-fill: #684858;
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+  -fx-padding: 10 18;
+  -fx-cursor: hand;
+}
+
+/* Glavna roze dugmad. */
+.primary-button {
+  -fx-background-color: #B85C83;
+  -fx-text-fill: #FFFFFF;
+}
+
+/* Blaga promena boje pri prelasku misem. */
+.primary-button:hover {
+  -fx-background-color: #A34C73;
+}
+
+/* Dugmad za povratak i odjavu. */
+.secondary-button {
+  -fx-background-color: #F6D8BD;
+  -fx-text-fill: #684858;
+}
+
+/* Linkovi, kao sto je Register. */
+.hyperlink {
+  -fx-text-fill: #B85C83;
+}
+
+/* Prikaz ukupne cene. */
+.price-label {
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #684858;
+}
+
+/* Napomene o demo rezimu. */
+.demo-label {
+  -fx-font-size: 11px;
+  -fx-text-fill: #9A7A89;
+}
+
+/* Liste parking mesta, rezervacija i poruka. */
+.list-view {
+  -fx-background-color: white;
+  -fx-border-color: #E8A1BB;
+  -fx-border-radius: 10;
+  -fx-background-radius: 10;
+}
+
+/* Izabrani red u listi. */
+.list-cell:filled:selected {
+  -fx-background-color: #E8A1BB;
+  -fx-text-fill: #684858;
+}

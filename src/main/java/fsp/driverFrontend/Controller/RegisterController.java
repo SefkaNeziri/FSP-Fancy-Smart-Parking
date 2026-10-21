@@ -1,6 +1,8 @@
 
-package fsp.driverFrontend;
+package fsp.driverFrontend.Controller;
 
+import fsp.driverFrontend.DemoData;
+import fsp.driverFrontend.Navigator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -21,18 +23,17 @@ public class RegisterController {
   @FXML
   private PasswordField confirmPasswordField;
 
-  // Obradjuje klik na Create Account.
-
+  // Handles the Create Account button click.
   @FXML
   private void handleRegister(ActionEvent event) {
 
-    // Uzimamo podatke koje je korisnik uneo.
+    // Gets the data entered by the user.
     String name = nameField.getText().trim();
     String email = emailField.getText().trim();
     String password = passwordField.getText();
     String confirmation = confirmPasswordField.getText();
 
-    // Proveravamo da li su sva polja popunjena.
+    // Checks whether all fields are filled in.
     if (name.isEmpty() || email.isEmpty()
         || password.isEmpty() || confirmation.isEmpty()) {
 
@@ -43,7 +44,7 @@ public class RegisterController {
       return;
     }
 
-    // Proveravamo osnovni format email adrese.
+    // Validates the basic email address format.
     if (!email.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")) {
       showMessage(
           Alert.AlertType.WARNING,
@@ -52,7 +53,7 @@ public class RegisterController {
       return;
     }
 
-    // Lozinka mora imati najmanje 8 karaktera.
+    // The password must be at least 8 characters long.
     if (password.length() < 8) {
       showMessage(
           Alert.AlertType.WARNING,
@@ -61,7 +62,7 @@ public class RegisterController {
       return;
     }
 
-    // Lozinka i potvrda lozinke moraju biti iste.
+    // The password and confirmation password must match.
     if (!password.equals(confirmation)) {
       showMessage(
           Alert.AlertType.WARNING,
@@ -70,17 +71,18 @@ public class RegisterController {
       return;
     }
 
-    // DEMO: cuvamo email kao trenutno prijavljenog vozaca.
-    // Pravi nalog ce kreirati backend kada ga povezemo.
+    // DEMO: Stores the email as the currently logged-in driver.
+    // The backend will create the actual account once it is connected.
+
     DemoData.currentDriverEmail = email;
 
-    // Obavestavamo korisnika da je ovo demo registracija.
+    // Informs the user that this is a demo registration.
     showMessage(
         Alert.AlertType.INFORMATION,
         "Registration completed in demo mode. Welcome, " + name + "!"
     );
 
-    // Odmah otvaramo Dashboard, bez povratka na Login.
+    // Opens the Dashboard immediately without returning to the Login screen.
     Navigator.goTo(event, "dashboard.fxml");
   }
 

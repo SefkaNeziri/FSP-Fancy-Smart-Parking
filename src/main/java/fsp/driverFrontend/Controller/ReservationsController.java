@@ -1,6 +1,8 @@
 
-package fsp.driverFrontend;
+package fsp.driverFrontend.Controller;
 
+import fsp.driverFrontend.DemoData;
+import fsp.driverFrontend.Navigator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -12,7 +14,7 @@ public class ReservationsController {
   @FXML
   private ListView<DemoData.Reservation> reservationList;
 
-  // Ucitavamo rezervacije trenutnog vozaca.
+  // Loads the current driver's reservations.
   @FXML
   private void initialize() {
     refreshReservations();
@@ -24,7 +26,7 @@ public class ReservationsController {
     );
   }
 
-  // Otkazuje izabranu rezervaciju.
+  // Cancels the selected reservation.
   @FXML
   private void handleCancel() {
 
@@ -65,7 +67,7 @@ public class ReservationsController {
       return;
     }
 
-    // Menjamo status rezervacije samo u lokalnoj listi.
+    // Updates the reservation status only in the local list.
     selected.cancelled = true;
 
     DemoData.notifications.add(

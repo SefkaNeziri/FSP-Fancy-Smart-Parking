@@ -11,31 +11,31 @@ import java.io.IOException;
 
 public class Navigator {
 
-  // Privatni konstruktor: ne pravimo objekte ove klase.
+  // Private constructor: We don't create objects of this class.
   private Navigator() {
   }
 
-  // Menja trenutni FXML ekran kada korisnik klikne dugme.
+  // Changes the current FXML screen when the user clicks a button.
   public static void goTo(ActionEvent event, String fxmlFile) {
 
     try {
-      // Pronalazimo prozor preko dugmeta koje je kliknuto.
+      // Finds the window through the button that was clicked.
       Node source = (Node) event.getSource();
       Stage stage = (Stage) source.getScene().getWindow();
 
-      // Ucitavamo novi ekran.
+      // Loads the new screen.
       FXMLLoader loader = new FXMLLoader(
           Navigator.class.getResource("/" + fxmlFile)
       );
 
       Parent root = loader.load();
 
-      // Koristimo isti prozor, bez otvaranja novih prozora.
+      // Uses the same window without opening new windows.
       stage.getScene().setRoot(root);
 
     } catch (IOException e) {
 
-      // U terminalu vidimo tacnu gresku ako FXML ne postoji.
+      // Displays the exact error in the terminal if the FXML file does not exist.
       e.printStackTrace();
 
       throw new IllegalStateException(

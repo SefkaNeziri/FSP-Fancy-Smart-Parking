@@ -1,6 +1,8 @@
 
-package fsp.driverFrontend;
+package fsp.driverFrontend.Controller;
 
+import fsp.driverFrontend.DemoData;
+import fsp.driverFrontend.Navigator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -32,7 +34,7 @@ public class PaymentsController {
     updateDetails();
   }
 
-  // Prikazuje informacije o izabranoj rezervaciji.
+  // Displays information about the selected reservation.
   private void updateDetails() {
 
     DemoData.Reservation selected =
@@ -56,7 +58,7 @@ public class PaymentsController {
     );
   }
 
-  // DEMO: menja status, ali ne izvrsava stvarnu naplatu.
+  // DEMO: Changes the status but does not process an actual payment.
   @FXML
   private void handleSimulatePayment() {
 

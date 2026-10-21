@@ -1,6 +1,8 @@
 
-package fsp.driverFrontend;
+package fsp.driverFrontend.Controller;
 
+import fsp.driverFrontend.DemoData;
+import fsp.driverFrontend.Navigator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -33,14 +35,15 @@ public class ParkingController {
   @FXML
   private Label priceLabel;
 
-  // Priprema podatke kada otvorimo Parking ekran.
+  // Prepares the data when the Parking screen is opened.
   @FXML
   private void initialize() {
 
     parkingList.getItems().setAll(DemoData.spots);
     spotComboBox.getItems().setAll(DemoData.spots);
 
-    // Korisnik bira pocetak rezervacije.
+    // The user selects the reservation start time.
+
     for (int hour = 0; hour < 24; hour++) {
       timeComboBox.getItems().add(
           String.format("%02d:00", hour)
@@ -52,7 +55,7 @@ public class ParkingController {
     datePicker.setValue(LocalDate.now());
     hoursComboBox.setValue(1);
 
-    // Izbor sa liste automatski azurira ComboBox.
+    // Selecting an item from the list automatically updates the ComboBox.
     parkingList.getSelectionModel()
         .selectedItemProperty()
         .addListener((observable, oldSpot, newSpot) -> {
@@ -61,8 +64,8 @@ public class ParkingController {
           }
         });
 
-    // Kada korisnik promeni parking ili trajanje,
-    // automatski se azurira cena.
+    // When the user changes the parking space or duration,
+    // the price is automatically updated.
     spotComboBox.valueProperty().addListener(
         (observable, oldValue, newValue) -> updatePrice()
     );
@@ -75,7 +78,7 @@ public class ParkingController {
     updatePrice();
   }
 
-  // Izracunava cenu iz izabranog mesta i trajanja.
+  // Calculates the price based on the selected parking space and duration.
   private void updatePrice() {
 
     DemoData.ParkingSpot spot = spotComboBox.getValue();
@@ -93,7 +96,7 @@ public class ParkingController {
     );
   }
 
-  // Kreira novu demo rezervaciju.
+  // Creates a new demo reservation.
   @FXML
   private void handleReserve(ActionEvent event) {
 
@@ -112,15 +115,15 @@ public class ParkingController {
     LocalTime selectedTime = LocalTime.parse(time);
     LocalDateTime start = LocalDateTime.of(date, selectedTime);
 
-    // Nije moguce rezervisati vreme koje je proslo.
+    // It is not possible to reserve a time slot in the past.
     if (!start.isAfter(LocalDateTime.now())) {
       showMessage(Alert.AlertType.WARNING,
           "Please select a future date and time.");
       return;
     }
 
-    // Proveravamo da li postoji druga demo rezervacija
-    // za isto mesto u izabranom terminu.
+    // Checks whether another demo reservation exists
+    // for the same parking space during the selected time slot.
     DemoData.Reservation reservation =
         DemoData.reserve(spot, start, hours);
 
