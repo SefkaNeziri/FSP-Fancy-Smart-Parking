@@ -1,5 +1,5 @@
 
-package dk.via.pro3;
+package fsp.driverFrontend;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

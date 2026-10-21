@@ -1,5 +1,5 @@
 
-package dk.via.pro3;
+package fsp.driverFrontend;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
