@@ -22,7 +22,7 @@ public class DriverGatewayController : ControllerBase
     {
         try
         {
-            // TODO: Forward registration request to Java Driver Backend (http://localhost:8080) when ready
+            // TODO: Forward to Java Driver Backend when ready
             return Ok(request);
         }
         catch (Exception e)
@@ -37,9 +37,7 @@ public class DriverGatewayController : ControllerBase
     {
         try
         {
-            // TODO: Forward reservation request to Java Driver Backend when ready
-
-            // Automatycznie wyslij powiadomienie o udanej rezerwacji (Use Case 5)
+            // TODO: Forward reservation to Java Driver Backend via gRPC/REST when ready
             notificationService.SendReservationConfirmation(request.Email, request.ParkingSpot);
 
             return Ok(request);
@@ -57,7 +55,6 @@ public class DriverGatewayController : ControllerBase
         try
         {
             // TODO: Forward cancel request to Java Driver Backend when ready
-
             notificationService.SendCancellationNotification(email, parkingSpot);
             return NoContent();
         }

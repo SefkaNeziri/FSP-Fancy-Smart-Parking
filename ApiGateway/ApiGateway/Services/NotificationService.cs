@@ -13,7 +13,7 @@ public class NotificationService : INotificationService
             .ToList();
     }
 
-    // Use Case 5 (Trigger A): Potwierdzenie utworzenia rezerwacji
+    // Use Case 5 (Trigger A): Reservation confirmation
     public NotificationDto SendReservationConfirmation(string email, string parkingSpot)
     {
         NotificationDto notification = new()
@@ -28,7 +28,7 @@ public class NotificationService : INotificationService
         return notification;
     }
 
-    // Use Case 6: Powiadomienie o anulowaniu rezerwacji
+    // Use Case 6: Cancellation notification
     public NotificationDto SendCancellationNotification(string email, string parkingSpot)
     {
         NotificationDto notification = new()
@@ -43,8 +43,8 @@ public class NotificationService : INotificationService
         return notification;
     }
 
-    // Use Case 5 (Trigger B): Przypomnienie o konczacym sie czasie parkowania
-    // TODO: Add automatic background timer when Driver Backend is connected
+    // Use Case 5 (Trigger B): Expiration reminder
+    // TODO: Add background timer when Driver Backend is connected
     public NotificationDto SendExpirationReminder(string email, string parkingSpot, int minutesLeft)
     {
         NotificationDto notification = new()
