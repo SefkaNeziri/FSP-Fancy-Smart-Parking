@@ -23,17 +23,17 @@ public class RegisterController {
   @FXML
   private PasswordField confirmPasswordField;
 
-  // Handles the Create Account button click.
+  // Handles the Create Account button.
   @FXML
   private void handleRegister(ActionEvent event) {
 
-    // Gets the data entered by the user.
+    // Read the data entered by the user.
     String name = nameField.getText().trim();
     String email = emailField.getText().trim();
     String password = passwordField.getText();
     String confirmation = confirmPasswordField.getText();
 
-    // Checks whether all fields are filled in.
+    // Check that all fields are completed.
     if (name.isEmpty() || email.isEmpty()
         || password.isEmpty() || confirmation.isEmpty()) {
 
@@ -44,8 +44,9 @@ public class RegisterController {
       return;
     }
 
-    // Validates the basic email address format.
+    // Validate the email address format.
     if (!email.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")) {
+
       showMessage(
           Alert.AlertType.WARNING,
           "Please enter a valid email address."
@@ -53,8 +54,9 @@ public class RegisterController {
       return;
     }
 
-    // The password must be at least 8 characters long.
+    // Require a password with at least 8 characters.
     if (password.length() < 8) {
+
       showMessage(
           Alert.AlertType.WARNING,
           "Password must contain at least 8 characters."
@@ -62,8 +64,9 @@ public class RegisterController {
       return;
     }
 
-    // The password and confirmation password must match.
+    // Check that both passwords match.
     if (!password.equals(confirmation)) {
+
       showMessage(
           Alert.AlertType.WARNING,
           "Passwords do not match."
@@ -71,26 +74,35 @@ public class RegisterController {
       return;
     }
 
-    // DEMO: Stores the email as the currently logged-in driver.
-    // The backend will create the actual account once it is connected.
-
+    // Store the current driver for the demo session.
+    // Real account creation will be handled by the backend.
     DemoData.currentDriverEmail = email;
 
-    // Informs the user that this is a demo registration.
+    // Inform the driver that registration is a demo.
     showMessage(
         Alert.AlertType.INFORMATION,
-        "Registration completed in demo mode. Welcome, " + name + "!"
+        "Registration completed in demo mode. Welcome, "
+            + name + "!"
     );
 
-    // Opens the Dashboard immediately without returning to the Login screen.
+    // Open Dashboard after successful demo registration.
     Navigator.goTo(event, "dashboard.fxml");
   }
 
+  // Handles the Back to Login button.
+  @FXML
+  private void handleBack(ActionEvent event) {
 
+    // Return to the Login screen.
+    Navigator.goTo(event, "login.fxml");
+  }
+
+  // Displays feedback messages to the driver.
   private void showMessage(
       Alert.AlertType type,
       String message
   ) {
+
     Alert alert = new Alert(type);
     alert.setTitle("Fancy Smart Parking");
     alert.setHeaderText("Registration");
