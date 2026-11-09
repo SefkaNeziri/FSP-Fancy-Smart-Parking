@@ -4,7 +4,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="fsp.driverFrontend.ReservationsController"
+      fx:controller="fsp.driverFrontend.Controller.ReservationsController"
       stylesheets="@styles.css"
       styleClass="page"
       alignment="CENTER"

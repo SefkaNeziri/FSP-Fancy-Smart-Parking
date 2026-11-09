@@ -1,6 +1,8 @@
 
-package fsp.driverFrontend;
+package fsp.driverFrontend.Controller;
 
+import fsp.driverFrontend.DemoData;
+import fsp.driverFrontend.Navigator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -10,7 +12,7 @@ public class NotificationsController {
   @FXML
   private ListView<String> notificationList;
 
-  // Prikazuje samo poruke koje pripadaju ovom vozacu.
+  // Displays only the messages that belong to this driver.
   @FXML
   private void initialize() {
 

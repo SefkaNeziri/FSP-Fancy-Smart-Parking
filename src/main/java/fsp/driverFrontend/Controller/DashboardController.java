@@ -1,6 +1,8 @@
 
-package fsp.driverFrontend;
+package fsp.driverFrontend.Controller;
 
+import fsp.driverFrontend.DemoData;
+import fsp.driverFrontend.Navigator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,7 +12,7 @@ public class DashboardController {
   @FXML
   private Label welcomeLabel;
 
-  // initialize() se automatski poziva pri ucitavanju FXML-a.
+  // initialize() is automatically called when the FXML file is loaded.
   @FXML
   private void initialize() {
     welcomeLabel.setText(
@@ -38,7 +40,7 @@ public class DashboardController {
     Navigator.goTo(event, "notifications.fxml");
   }
 
-  // Odjavljuje korisnika i vraca Login ekran.
+  // Logs out the user and returns to the Login screen.
   @FXML
   private void handleLogout(ActionEvent event) {
     DemoData.logout();
