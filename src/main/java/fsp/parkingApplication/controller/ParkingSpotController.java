@@ -15,7 +15,7 @@ public class ParkingSpotController {
     }
 
     @GetMapping("/{parkingSpot}")
-    public String getLicensePlate(@PathVariable String parkingSpot) {
+    public String getLicensePlate(@PathVariable("parkingSpot") String parkingSpot) {
         return parkingService.getLicensePlate(parkingSpot);
     }
 
