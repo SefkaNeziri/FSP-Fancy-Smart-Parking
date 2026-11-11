@@ -9,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<INotificationService, NotificationService>();
+builder.Services.AddHostedService<ReservationReminderTimer>();
 builder.Services.AddHttpClient();
 
 var app = builder.Build();

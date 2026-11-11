@@ -105,7 +105,7 @@ public class DriverGatewayController : ControllerBase
         try
         {
             // TODO: Forward reservation to Java Driver Backend via gRPC/REST when ready
-            notificationService.SendReservationConfirmation(request.Email, request.ParkingSpot);
+            notificationService.SendReservationConfirmation(request.Email, request.ParkingSpot, request.Hours);
 
             return Ok(request);
         }
