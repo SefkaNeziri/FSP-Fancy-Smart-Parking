@@ -1,10 +1,11 @@
 
 package fsp.driverFrontend.Controller;
-
+import fsp.driverFrontend.DriverApiClient;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
 import fsp.driverFrontend.DemoData;
 import fsp.driverFrontend.Navigator;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -41,6 +42,7 @@ public class ParkingController {
 
     parkingList.getItems().setAll(DemoData.spots);
     spotComboBox.getItems().setAll(DemoData.spots);
+    loadParkingFacilities();
 
     // The user selects the reservation start time.
 
@@ -156,4 +158,34 @@ public class ParkingController {
     alert.setContentText(message);
     alert.showAndWait();
   }
+  private final DriverApiClient apiClient = new DriverApiClient();
+
+  private void loadParkingFacilities() {
+
+    // Test coordinates: Horsens
+    double latitude = 55.86;
+    double longitude = 9.85;
+
+    apiClient.getNearbyFacilities(latitude, longitude)
+        .whenComplete((response, error) -> {
+
+          Platform.runLater(() -> {
+
+            if (error != null) {
+              System.out.println(
+                  "Cannot connect to API Gateway: "
+                      + error.getMessage()
+              );
+              return;
+            }
+
+            System.out.println(
+                "Facilities received from backend:"
+            );
+
+            System.out.println(response);
+          });
+        });
+  }
+
 }
