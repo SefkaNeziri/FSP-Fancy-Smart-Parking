@@ -8,10 +8,10 @@ import java.util.List;
 
 public class DemoData {
 
-  // Email trenutno prijavljenog korisnika.
+  // Email address of the currently logged-in user.
   public static String currentDriverEmail = "";
 
-  // Testna parking mesta dostupna u demo rezimu.
+  // Test parking spaces available in demo mode.
   public static final List<ParkingSpot> spots = List.of(
       new ParkingSpot("A1", "City Center", 2.50),
       new ParkingSpot("A2", "City Center", 2.50),
@@ -21,19 +21,19 @@ public class DemoData {
       new ParkingSpot("C2", "University", 1.20)
   );
 
-  // Rezervacije postoje samo dok je aplikacija otvorena.
+  // Reservations exist only while the application is running.
   public static final List<Reservation> reservations =
       new ArrayList<>();
 
-  // Demo obavestenja za trenutnog korisnika.
+  // Demo notifications for the current user.
   public static final List<String> notifications =
       new ArrayList<>();
 
-  // Format datuma koji prikazujemo korisniku.
+  // Date format displayed to the user.
   private static final DateTimeFormatter FORMAT =
       DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
-  // Predstavlja jedno parking mesto.
+  // Represents a single parking space.
   public static class ParkingSpot {
 
     public final String id;
@@ -58,7 +58,7 @@ public class DemoData {
     }
   }
 
-  // Predstavlja jednu rezervaciju vozaca.
+  // Represents a driver's reservation.
   public static class Reservation {
 
     public final int id;
@@ -84,12 +84,12 @@ public class DemoData {
       this.hours = hours;
     }
 
-    // Ukupna cena zavisi od broja sati.
+    // The total price depends on the number of hours.
     public double getTotalPrice() {
       return spot.pricePerHour * hours;
     }
 
-    // Kraj rezervacije racunamo iz pocetka i trajanja.
+    // Calculates the reservation end time based on the start time and duration.
     public LocalDateTime getEnd() {
       return start.plusHours(hours);
     }
@@ -111,7 +111,7 @@ public class DemoData {
     }
   }
 
-  // Vraca rezervacije samo trenutno prijavljenog vozaca.
+  // Returns reservations only for the currently logged-in driver.
   public static List<Reservation> myReservations() {
 
     return reservations.stream()
@@ -119,7 +119,7 @@ public class DemoData {
         .toList();
   }
 
-  // Proverava preklapanje termina za isto parking mesto.
+  // Checks for overlapping reservations for the same parking space.
   public static boolean isSpotAvailable(
       ParkingSpot spot,
       LocalDateTime start,
@@ -134,8 +134,8 @@ public class DemoData {
         continue;
       }
 
-      // Dva termina se preklapaju ako novi pocinje
-      // pre kraja starog i zavrsava se posle njegovog pocetka.
+      // Two time slots overlap if the new one starts
+      // before the previous one ends and ends after it starts.
       boolean overlaps =
           start.isBefore(r.getEnd())
               && end.isAfter(r.start);
@@ -148,7 +148,7 @@ public class DemoData {
     return true;
   }
 
-  // Kreira rezervaciju ako je mesto slobodno.
+  // Creates a reservation if the parking space is available.
   public static synchronized Reservation reserve(
       ParkingSpot spot,
       LocalDateTime start,
@@ -178,7 +178,7 @@ public class DemoData {
     return reservation;
   }
 
-  // Brise sesiju korisnika, ali zadrzava demo rezervacije.
+  // Clears the user session but keeps the demo reservations.
   public static void logout() {
     currentDriverEmail = "";
   }
