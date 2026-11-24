@@ -1,4 +1,7 @@
 package fsp.parkingApplication.controller;
 
-public class ParkingController {
+
+public class ParkingController
+{
+
 }
