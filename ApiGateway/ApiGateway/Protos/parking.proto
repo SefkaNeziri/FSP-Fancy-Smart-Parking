@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option csharp_namespace = "ApiGateway.Grpc";
+
+package parking;
+
+service ParkingGrpc {
+  rpc ReserveParking (ReservationRequest) returns (ReservationReply);
+  rpc SendReminder (ReminderRequest) returns (NotificationReply);
+}
+
+message ReservationRequest {
+  string email = 1;
+  string licensePlate = 2;
+  string parkingSpot = 3;
+  int32 hours = 4;
+}
+
+message ReservationReply {
+  bool success = 1;
+  string message = 2;
+}
+
+message ReminderRequest {
+  string email = 1;
+  string parkingSpot = 2;
+  int32 minutesLeft = 3;
+}
+
+message NotificationReply {
+  int32 id = 1;
+  string email = 2;
+  string message = 3;
+}

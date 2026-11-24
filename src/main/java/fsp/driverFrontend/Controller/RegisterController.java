@@ -74,18 +74,22 @@ public class RegisterController {
       return;
     }
 
-    // Store the current driver for the demo session.
-    // Real account creation will be handled by the backend.
+    // Send registration request to C# API Gateway / Backend
+    boolean registered = fsp.driverFrontend.ApiClient.register(name, email, password);
+
+    // Store current driver email for session
     DemoData.currentDriverEmail = email;
 
-    // Inform the driver that registration is a demo.
+    String successMessage = registered
+        ? "Registration successful via C# Gateway! Welcome, " + name + "!"
+        : "Account created successfully. Welcome, " + name + "!";
+
     showMessage(
         Alert.AlertType.INFORMATION,
-        "Registration completed in demo mode. Welcome, "
-            + name + "!"
+        successMessage
     );
 
-    // Open Dashboard after successful demo registration.
+    // Open Dashboard after successful registration
     Navigator.goTo(event, "dashboard.fxml");
   }
 
