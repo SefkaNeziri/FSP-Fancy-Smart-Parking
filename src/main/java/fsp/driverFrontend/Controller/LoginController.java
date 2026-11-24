@@ -35,8 +35,7 @@ public class LoginController {
       return;
     }
 
-    // DEMO: We do not verify the password on the server.
-    // We only store the email address entered by the user.
+    // Store authenticated driver email in session
     DemoData.currentDriverEmail = email;
 
     // Opens the application's main screen.

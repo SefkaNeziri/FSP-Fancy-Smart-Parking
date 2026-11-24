@@ -67,8 +67,14 @@ public class ReservationsController {
       return;
     }
 
-    // Updates the reservation status only in the local list.
+    // Update reservation status locally
     selected.cancelled = true;
+
+    // Send cancellation to C# Gateway to trigger cancellation notification (Use Case 6)
+    fsp.driverFrontend.ApiClient.cancelReservation(
+        DemoData.currentDriverEmail,
+        selected.spot.id
+    );
 
     DemoData.notifications.add(
         DemoData.currentDriverEmail
@@ -77,7 +83,7 @@ public class ReservationsController {
     );
 
     refreshReservations();
-    showMessage("Reservation cancelled in demo mode.");
+    showMessage("Reservation #" + selected.id + " was cancelled successfully.");
   }
 
   @FXML

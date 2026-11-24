@@ -12,10 +12,20 @@ public class NotificationsController {
   @FXML
   private ListView<String> notificationList;
 
-  // Displays only the messages that belong to this driver.
+  // Displays notifications from C# Gateway / local store for this driver.
   @FXML
   private void initialize() {
 
+    // First attempt to fetch live notifications from C# Gateway
+    java.util.List<String> remoteNotes =
+        fsp.driverFrontend.ApiClient.getNotifications(DemoData.currentDriverEmail);
+
+    if (remoteNotes != null && !remoteNotes.isEmpty()) {
+      notificationList.getItems().setAll(remoteNotes);
+      return;
+    }
+
+    // Fallback to local notification store
     String prefix = DemoData.currentDriverEmail + ":";
 
     notificationList.getItems().setAll(

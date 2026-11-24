@@ -122,8 +122,7 @@ public class ParkingController {
       return;
     }
 
-    // Checks whether another demo reservation exists
-    // for the same parking space during the selected time slot.
+    // Create reservation locally
     DemoData.Reservation reservation =
         DemoData.reserve(spot, start, hours);
 
@@ -134,9 +133,18 @@ public class ParkingController {
       return;
     }
 
-    showMessage(Alert.AlertType.INFORMATION,
-        "Reservation #" + reservation.id
-            + " created successfully in demo mode.");
+    // Forward reservation to C# Gateway to trigger notification and expiration reminder timer
+    boolean gatewayNotified = fsp.driverFrontend.ApiClient.reserve(
+        DemoData.currentDriverEmail,
+        spot.id,
+        hours
+    );
+
+    String confirmationText = gatewayNotified
+        ? "Reservation #" + reservation.id + " created and confirmed via C# Gateway!"
+        : "Reservation #" + reservation.id + " created successfully.";
+
+    showMessage(Alert.AlertType.INFORMATION, confirmationText);
 
     Navigator.goTo(event, "reservations.fxml");
   }

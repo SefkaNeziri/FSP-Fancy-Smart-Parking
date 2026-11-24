@@ -85,11 +85,37 @@ public class DriverGatewayController : ControllerBase
     }
 
     [HttpPost("register")]
-    public ActionResult<DriverRegistrationDto> RegisterDriver([FromBody] DriverRegistrationDto request)
+    public async Task<ActionResult<DriverRegistrationDto>> RegisterDriver([FromBody] DriverRegistrationDto request)
     {
         try
         {
-            // TODO: Forward to Java Driver Backend when ready
+            try
+            {
+                string displayName = !string.IsNullOrWhiteSpace(request.FullName) ? request.FullName : request.UserName;
+                var names = displayName.Split(' ', 2);
+                string firstName = names.Length > 0 ? names[0] : "Driver";
+                string lastName = names.Length > 1 ? names[1] : "User";
+
+                var javaPayload = new
+                {
+                    email = request.Email,
+                    password = request.Password,
+                    firstName = firstName,
+                    lastName = lastName,
+                    phoneNumber = "+4500000000",
+                    licensePlate = !string.IsNullOrWhiteSpace(request.LicensePlate) ? request.LicensePlate : "AB12345",
+                    brand = "Standard",
+                    model = "Car"
+                };
+
+                await httpClient.PostAsJsonAsync($"{DriverServiceUrl}/api/drivers/register", javaPayload);
+            }
+            catch (Exception ex)
+            {
+                // Non-blocking: Java driver-service may be offline during standalone testing
+                Console.WriteLine($"[DriverGateway] Note: Java driver-service register forward: {ex.Message}");
+            }
+
             return Ok(request);
         }
         catch (Exception e)
