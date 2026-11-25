@@ -11,7 +11,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -186,6 +189,43 @@ public class ParkingController {
             System.out.println(response);
           });
         });
+  }
+
+  @FXML
+  private void handleNavigate() {
+    DemoData.ParkingSpot selectedSpot = spotComboBox.getValue();
+
+    if (selectedSpot == null) {
+      showMessage(
+          Alert.AlertType.WARNING,
+          "Please select a parking spot first."
+      );
+      return;
+    }
+
+    try {
+      // real address or coordinates when available.
+      String destination = "Horsens Station, Denmark";
+
+      String encodedDestination = URLEncoder.encode(
+          destination,
+          StandardCharsets.UTF_8
+      );
+
+      String mapsUrl =
+          "https://www.google.com/maps/dir/?api=1"
+              + "&destination=" + encodedDestination
+              + "&travelmode=driving";
+
+      Desktop.getDesktop().browse(URI.create(mapsUrl));
+
+    } catch (Exception e) {
+      showMessage(
+          Alert.AlertType.ERROR,
+          "Could not open Google Maps."
+      );
+      e.printStackTrace();
+    }
   }
 
 }
