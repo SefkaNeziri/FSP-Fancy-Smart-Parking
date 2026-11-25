@@ -125,6 +125,32 @@ public class DriverGatewayController : ControllerBase
         }
     }
 
+    // Use Case 3: Login - verify credentials against Java driver-service database
+    [HttpPost("login")]
+    public async Task<ActionResult> LoginDriver([FromBody] LoginDto request)
+    {
+        try
+        {
+            var javaPayload = new { email = request.Email, password = request.Password };
+
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync(
+                $"{DriverServiceUrl}/api/drivers/login", javaPayload);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string body = await response.Content.ReadAsStringAsync();
+                return Ok(body);
+            }
+
+            return Unauthorized("Wrong email or password.");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"[DriverGateway] Login forward error: {e.Message}");
+            return StatusCode(503, "Could not connect to driver database. Please try again.");
+        }
+    }
+
     [HttpPost("reserve")]
     public ActionResult<ReservationDto> ReserveParking([FromBody] ReservationDto request)
     {

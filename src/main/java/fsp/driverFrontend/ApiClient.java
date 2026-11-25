@@ -20,6 +20,36 @@ public class ApiClient {
       .build();
 
   /**
+   * Verifies driver credentials against the database via C# Gateway -> Java driver-service.
+   * Returns true if the email and password match a registered account.
+   */
+  public static boolean login(String email, String password) {
+    try {
+      String json = String.format(
+          "{\"email\":\"%s\",\"password\":\"%s\"}",
+          escape(email), escape(password)
+      );
+
+      HttpRequest request = HttpRequest.newBuilder()
+          .uri(URI.create(GATEWAY_URL + "/api/driver/login"))
+          .header("Content-Type", "application/json")
+          .POST(HttpRequest.BodyPublishers.ofString(json))
+          .timeout(Duration.ofSeconds(5))
+          .build();
+
+      HttpResponse<String> response = client.send(
+          request,
+          HttpResponse.BodyHandlers.ofString()
+      );
+
+      return response.statusCode() >= 200 && response.statusCode() < 300;
+    } catch (Exception e) {
+      System.out.println("[ApiClient] Login failed - Gateway offline: " + e.getMessage());
+      return false;
+    }
+  }
+
+  /**
    * Registers a driver account via the C# Gateway.
    */
   public static boolean register(String name, String email, String password) {

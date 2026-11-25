@@ -35,6 +35,14 @@ public class LoginController {
       return;
     }
 
+    // Verify credentials against database via C# Gateway -> Java driver-service
+    boolean authenticated = fsp.driverFrontend.ApiClient.login(email, password);
+
+    if (!authenticated) {
+      showMessage("Wrong email or password. Please try again or register a new account.");
+      return;
+    }
+
     // Store authenticated driver email in session
     DemoData.currentDriverEmail = email;
 
