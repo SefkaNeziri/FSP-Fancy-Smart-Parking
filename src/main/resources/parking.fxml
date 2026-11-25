@@ -65,6 +65,11 @@
                 styleClass="primary-button"
                 prefWidth="220"/>
 
+        <Button text="Navigate to Parking"
+                onAction="#handleNavigate"
+                styleClass="secondary-button"
+                prefWidth="220"/>
+
         <Button text="Back to Dashboard"
                 onAction="#handleBack"
                 styleClass="secondary-button"/>

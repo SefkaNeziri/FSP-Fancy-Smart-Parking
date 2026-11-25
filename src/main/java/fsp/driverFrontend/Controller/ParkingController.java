@@ -1,16 +1,20 @@
 
 package fsp.driverFrontend.Controller;
-
+import fsp.driverFrontend.DriverApiClient;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
 import fsp.driverFrontend.DemoData;
 import fsp.driverFrontend.Navigator;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -41,6 +45,7 @@ public class ParkingController {
 
     parkingList.getItems().setAll(DemoData.spots);
     spotComboBox.getItems().setAll(DemoData.spots);
+    loadParkingFacilities();
 
     // The user selects the reservation start time.
 
@@ -164,4 +169,71 @@ public class ParkingController {
     alert.setContentText(message);
     alert.showAndWait();
   }
+  private final DriverApiClient apiClient = new DriverApiClient();
+
+  private void loadParkingFacilities() {
+
+    // Test coordinates: Horsens
+    double latitude = 55.86;
+    double longitude = 9.85;
+
+    apiClient.getNearbyFacilities(latitude, longitude)
+        .whenComplete((response, error) -> {
+
+          Platform.runLater(() -> {
+
+            if (error != null) {
+              System.out.println(
+                  "Cannot connect to API Gateway: "
+                      + error.getMessage()
+              );
+              return;
+            }
+
+            System.out.println(
+                "Facilities received from backend:"
+            );
+
+            System.out.println(response);
+          });
+        });
+  }
+
+  @FXML
+  private void handleNavigate() {
+    DemoData.ParkingSpot selectedSpot = spotComboBox.getValue();
+
+    if (selectedSpot == null) {
+      showMessage(
+          Alert.AlertType.WARNING,
+          "Please select a parking spot first."
+      );
+      return;
+    }
+
+    try {
+      // real address or coordinates when available.
+      String destination = "Horsens Station, Denmark";
+
+      String encodedDestination = URLEncoder.encode(
+          destination,
+          StandardCharsets.UTF_8
+      );
+
+      String mapsUrl =
+          "https://www.google.com/maps/dir/?api=1"
+              + "&destination=" + encodedDestination
+              + "&travelmode=driving";
+
+      Desktop.getDesktop().browse(URI.create(mapsUrl));
+
+    } catch (Exception e) {
+      showMessage(
+          Alert.AlertType.ERROR,
+          "Could not open Google Maps."
+      );
+      e.printStackTrace();
+    }
+  }
+
 }
